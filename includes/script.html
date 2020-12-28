@@ -1,0 +1,45 @@
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function Toast_msg(msg) {
+        M.toast({html: msg, classes: 'rounded'});
+    }
+
+    //Modal trigger
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+    });
+
+    //confirm alert of delete user
+    function confirmDeleteUser(id){
+        var response = confirm("Are you sure you ?");
+        if (response) {
+            window.location = 'actions.php?delete=' + id;
+        }
+    }
+
+    //get user detail using AJAX
+    function modifyUser(id) {
+        var id_modify = document.getElementById('id_modify');
+        var name = document.getElementById('name_modify');
+        var pseudo = document.getElementById('pseudo_modify');
+        var email = document.getElementById('email_modify');
+        
+        $.get( "actions.php?modify_clk="+id, function(data) {
+            data = JSON.parse(data);
+            id_modify.value = data.id;
+            name.value = data.name;
+            pseudo.value = data.pseudo;
+            email.value = data.email;
+        });
+
+    }
+
+    //logout button
+    function logout() {
+        window.location = 'actions.php?logout=yes';
+    }
+
+</script>
